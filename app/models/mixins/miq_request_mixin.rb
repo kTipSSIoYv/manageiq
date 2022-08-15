@@ -30,6 +30,15 @@ module MiqRequestMixin
     MiqRequestMixin.get_option_last(key, options)
   end
 
+  def self.get_option_array(key, value, from)
+    data = value || from[key]
+    Array.wrap(data)
+  end   
+
+  def get_option_array(key, value = nil)
+    MiqRequestMixin.get_option_array(key, value, options)
+  end    
+  
   def get_user
     if @user || User.in_my_region.find_by(:userid => userid)
       @user ||= User.in_my_region.find_by(:userid => userid).tap do |u|
